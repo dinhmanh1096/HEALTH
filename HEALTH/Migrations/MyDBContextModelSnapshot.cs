@@ -59,6 +59,21 @@ namespace HEALTH.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<Guid>("RoleID")
                         .HasColumnType("uniqueidentifier");
 
@@ -66,9 +81,6 @@ namespace HEALTH.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<Guid>("WorkoutID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserID");
 
@@ -80,22 +92,36 @@ namespace HEALTH.Migrations
             modelBuilder.Entity("HEALTH.Data.Workout", b =>
                 {
                     b.Property<Guid>("WorkoutID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Distance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Speed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("SportID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("WorkoutName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("WorkoutTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("WorkoutID");
 
                     b.HasIndex("SportID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Workout", (string)null);
                 });
@@ -121,15 +147,16 @@ namespace HEALTH.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Sport_Workout");
 
-                    b.HasOne("HEALTH.Data.User", "User")
-                        .WithOne("Workout")
-                        .HasForeignKey("HEALTH.Data.Workout", "WorkoutID")
+                    b.HasOne("HEALTH.Data.User", "user")
+                        .WithMany("Workouts")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .IsRequired()
+                        .HasConstraintName("Fk_user_workout");
 
                     b.Navigation("sport");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("HEALTH.Data.Role", b =>
@@ -144,8 +171,7 @@ namespace HEALTH.Migrations
 
             modelBuilder.Entity("HEALTH.Data.User", b =>
                 {
-                    b.Navigation("Workout")
-                        .IsRequired();
+                    b.Navigation("Workouts");
                 });
 #pragma warning restore 612, 618
         }

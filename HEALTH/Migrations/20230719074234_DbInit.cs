@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HEALTH.Migrations
 {
     /// <inheritdoc />
-    public partial class DBInit : Migration
+    public partial class DbInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,8 +41,10 @@ namespace HEALTH.Migrations
                 {
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    WorkoutID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    RoleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,8 +63,11 @@ namespace HEALTH.Migrations
                 {
                     WorkoutID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WorkoutName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkoutTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SportID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Distance = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SportID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,8 +79,8 @@ namespace HEALTH.Migrations
                         principalColumn: "SportID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Workout_User_WorkoutID",
-                        column: x => x.WorkoutID,
+                        name: "Fk_user_workout",
+                        column: x => x.UserID,
                         principalTable: "User",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
@@ -90,6 +95,11 @@ namespace HEALTH.Migrations
                 name: "IX_Workout_SportID",
                 table: "Workout",
                 column: "SportID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workout_UserID",
+                table: "Workout",
+                column: "UserID");
         }
 
         /// <inheritdoc />

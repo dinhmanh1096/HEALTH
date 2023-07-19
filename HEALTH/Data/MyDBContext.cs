@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace HEALTH.Data
 {
@@ -39,19 +40,22 @@ namespace HEALTH.Data
                 
                 
             });
-            modelBuilder.Entity<User>()
-                .HasOne(e=>e.Workout)
-                .WithOne(x=>x.User)
-                .HasForeignKey<Workout>(x=>x.WorkoutID);
+            
 
             modelBuilder.Entity<Workout>(w => 
             {
                 w.ToTable("Workout");
-                w.HasKey(wo => wo.WorkoutID);
-                w.HasOne(wo => wo.sport)
-                .WithMany(wo => wo.Workouts)
-                .HasForeignKey(wo => wo.SportID)
+                w.HasKey(e => e.WorkoutID);
+
+                w.HasOne(e => e.sport)
+                .WithMany(e => e.Workouts)
+                .HasForeignKey(e => e.SportID)
                 .HasConstraintName("FK_Sport_Workout");
+
+                w.HasOne(e => e.user)
+                .WithMany(e => e.Workouts)
+                .HasForeignKey(e => e.UserID)
+                .HasConstraintName("Fk_user_workout");
             });
         }
     }

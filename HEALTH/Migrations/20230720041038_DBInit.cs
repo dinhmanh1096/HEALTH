@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace HEALTH.Migrations
 {
     /// <inheritdoc />
-    public partial class DbInit : Migration
+    public partial class DBInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +14,7 @@ namespace HEALTH.Migrations
                 name: "Role",
                 columns: table => new
                 {
-                    RoleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -27,7 +26,7 @@ namespace HEALTH.Migrations
                 name: "Sport",
                 columns: table => new
                 {
-                    SportID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SportID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SportName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -39,11 +38,11 @@ namespace HEALTH.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    RoleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
@@ -61,13 +60,13 @@ namespace HEALTH.Migrations
                 name: "Workout",
                 columns: table => new
                 {
-                    WorkoutID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkoutID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     WorkoutName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Distance = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SportID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    SportID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {

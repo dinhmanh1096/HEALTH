@@ -1,10 +1,8 @@
-﻿namespace HEALTH.Data
+﻿namespace HEALTH.Models
 {
-    public class Role
+    public class RoleModels
     {
         public string RoleID { get; set; }
         public string RoleName { get; set; }
-
-        public ICollection<User> Users { get; set;}
     }
 }

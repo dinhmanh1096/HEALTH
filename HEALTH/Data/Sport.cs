@@ -4,7 +4,7 @@ namespace HEALTH.Data
 {
     public class Sport
     {
-        public Guid SportID { get; set; }
+        public string SportID { get; set; }
 
         [MaxLength(50)]
         public string SportName { get; set; } 

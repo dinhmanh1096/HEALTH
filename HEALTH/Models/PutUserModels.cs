@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HEALTH.Data
+namespace HEALTH.Models
 {
-    public class User
+    public class PutUserModels
     {
-        public string UserID { get; set; }
-        [MaxLength(50)]
         public string UserName { get; set; }
         [MaxLength(50)]
         public string Address { get; set; }
@@ -15,14 +13,5 @@ namespace HEALTH.Data
         public string RoleID { get; set; }
         [MaxLength(20)]
         public string Password { get; set; }
-        //
-        public Role Role { get; set; }
-
-        public ICollection<Workout> Workouts { get; set; }
-
-        public User() 
-        {
-            Workouts = new List<Workout>();
-        }
     }
 }
